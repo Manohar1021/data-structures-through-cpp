@@ -1,0 +1,96 @@
+#include <iostream>
+
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node*next;
+    
+    node(int val)
+    {
+        data=val;
+        next=NULL;
+    }
+};
+void addattail(node*&head,int val)
+{
+    cin>>val;
+    node*n=new node(val);
+    if(head==NULL)
+    {
+        head=n;
+        return;
+    }
+    node*temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    temp->next=n;
+    return;
+}
+void display(node*head)
+{
+    node*temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+    
+}
+void addathead(node*&head,int val)
+{
+    node*n=new node(val);
+    n->next=head;
+    head=n;
+    return;
+}
+
+void addatpos(node*&head,int val,int n,int pos)
+{
+    cin>>val;
+    cin>>pos;
+    if(pos<1&&pos>n+1)
+    {
+        return;
+    }
+    node*temp=head;
+    for(int i=1;i<pos-1;i++)
+    {
+        temp=temp->next;
+        
+    }
+    
+    node*newn=new node(val);
+    newn->next=temp->next;
+    temp->next=newn;
+    
+    if(pos==1)
+    {
+        head=newn;
+    }
+    n++;
+}
+
+
+
+
+int main()
+{
+    node*head=NULL;
+    int n,val,pos;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        addattail(head,val);
+    }
+    addatpos(head,val,n,pos);
+    
+    
+    display(head);
+    
+   
+    
+}

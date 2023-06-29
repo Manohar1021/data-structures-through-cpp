@@ -1,0 +1,8 @@
+1.single list creation
+2.add at tail
+3.add at head
+4.delete at position
+5.delete at head
+6.reverse
+7.reverse k
+8.cycle loop(creation,detection,deletion)

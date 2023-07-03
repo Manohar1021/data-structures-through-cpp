@@ -1,0 +1,104 @@
+#include <iostream>
+
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node*next;
+    node*prev;
+    
+    
+    
+    node(int val)
+    {
+        data=val;
+        next=NULL;
+        prev=NULL;
+    }
+};
+void addathead(node*&head,int val)
+{
+    node*n=new node(val);
+    n->next=head;
+    if(head!=NULL)
+    {
+        head->prev=n;
+    }
+    head=n;
+    return;
+}
+void addattail(node*&head,int val)
+{
+    node*n=new node(val);
+    if(head==NULL)
+    {
+        addathead(head,val);
+        return;
+    }
+    node*temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    temp->next=n;
+    n->prev=temp;
+    
+    return;
+}
+
+void display(node*&head)
+{
+    node*temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    
+    cout<<"NULL";
+}
+ void  rotate(node*&head,int pos)
+{
+    if(pos==0)
+    {
+        return;
+    }
+    node*curr=head;
+    int count=1;
+    while(count<pos&&curr!=NULL)
+    {
+        curr=curr->next;
+        count++;
+    }
+    node*nth=curr;
+    if(curr==NULL)
+    {
+        return;
+    }
+    while(curr->next!=NULL)
+    {
+        curr=curr->next;
+    }
+    curr->next=head;
+    head->prev=curr;
+    head=nth->next;
+    head->prev=NULL;
+    nth->next=NULL;
+}
+
+int main()
+{
+    node*head=NULL;
+   addattail(head,10);
+   addattail(head,30);
+   display(head);
+   addathead(head,20);
+   cout<<"\n";
+   display(head);
+   rotate(head,2);
+   cout<<"\n";
+   display(head);
+
+    return 0;
+}

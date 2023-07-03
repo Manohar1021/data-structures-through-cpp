@@ -1,0 +1,113 @@
+#include <iostream>
+
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node*next;
+    node*prev;
+    
+    
+    node(int val)
+    {
+        
+        data=val;
+        prev=NULL;
+        next=NULL;
+        
+    }
+};
+void addathead(node*&head,int val)
+{
+    node*n=new node(val);
+    n->next=head;
+    head=n;
+    return;
+}
+
+void addatatail(node*&head,int val)
+{
+    node*n=new node(val);
+    
+    if(head==NULL)
+    {
+        addathead(head,val);
+        return;
+    }
+    
+    node*temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    temp->next=n;
+    n->prev=temp;
+    
+    return;
+}
+void display(node*&head)
+{
+    node*temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"NULL";
+    
+}
+void deletehead(node*&head)
+{
+    //to delete is used to store head value temporarly
+    node*todelete=head;
+    head=head->next;
+    head->prev=NULL;
+    delete todelete;
+}
+
+void Delete(node*&head,int pos)
+{
+    if(pos==1)
+    {
+        deletehead(head);
+        return;
+    }
+    
+    node*temp=head;
+    int count=1;
+    while(temp!=NULL&&count!=pos)
+    {
+        
+        temp=temp->next;
+        count++;
+    }
+temp->prev->next=temp->next;
+    
+    //if there is no element at end then
+    if(temp->next!=NULL)
+    {
+temp->next->prev=temp->prev;
+        
+    }
+    delete temp;
+}
+
+int main()
+{
+    node*head=NULL;
+    addatatail(head,10);
+    addatatail(head,20);
+    addatatail(head,30);
+    addatatail(head,40);
+    display(head);
+    cout<<"\n";
+    addathead(head,90);
+    display(head);
+    cout<<"\n";
+    deletehead(head);
+    display(head);
+    cout<<"\n";
+    Delete(head,3);
+    display(head);
+}

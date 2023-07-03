@@ -1,0 +1,94 @@
+#include <iostream>
+
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node*next;
+    node*prev;
+    
+    node(int val)
+    {
+        data=val;
+        prev=NULL;
+        next=NULL;
+    }
+};
+
+void addathead(node*&head,int val)
+{
+    
+    node*n=new node(val);
+    n->next=head;
+    if(head!=NULL)
+    {
+    head->prev=n;
+    }
+    head=n;
+   
+    return ;
+}
+
+void addattail(node*&head,int val)
+{
+    node*n=new node(val);
+    if(head==NULL)
+    {
+        addathead(head,val);
+        return;
+    }
+    
+    node*temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    temp->next=n;
+    n->prev=temp;
+    return;
+}
+void display(node*&head)
+{
+    node*temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"NULL";
+    return;
+    
+}
+void reverse(node*&head)
+{
+    
+    node*preve=NULL;
+    node*curr=head;
+    while(curr!=NULL)
+    {
+        preve=curr->prev;
+        curr->prev=curr->next;//swaping
+        curr->next=preve;
+        curr=curr->prev;
+    }
+    if(preve!=NULL)
+    {
+        head=preve->prev;//keeping head at first
+    }
+    return;
+}
+
+int main()
+{
+    node*head=NULL;
+    addattail(head,20);
+    addattail(head,30);
+    display(head);
+    cout<<"\n";
+    addathead(head,10);
+    display(head);
+    cout<<"\n";
+    reverse(head);
+    display(head);
+}
